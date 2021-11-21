@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app"></div>
+    <script src="../dist/reactivity.global.js"></script>
+    <script>
+        const { reactive, effect } = VueReactivity;
+        const obj = {
+            name:'xiaoming',
+            age:13
+        }
+        const state = reactive(obj)
+        /**
+         * 
+         1. 代理实现
+         2. 代理对象的问题()
+            2.1 代理过同一个引用就不要再代理了
+            2.2 已经代理过的proxy 又塞到 reactive
+         3. 
+        */
+        effect(()=>{
+           app.innerHTML = (state.name + '今年'+ state.age + '岁了');
+        })
+        setTimeout(()=>{
+            state.age = 20;
+        },3000)
+    </script>
+</body>
+</html>
